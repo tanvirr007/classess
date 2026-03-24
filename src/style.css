@@ -341,8 +341,10 @@ body {
 
 .card-value.null-val { color: var(--text-muted); font-style: italic; }
 
-/* Type chip */
-.type-chip {
+/* Type, Lift, and Time chips */
+.type-chip,
+.lift-pill,
+.time-chip {
   display: inline-block;
   padding: 2px 10px;
   border-radius: var(--radius-pill);
@@ -352,18 +354,11 @@ body {
   color: var(--text-secondary);
 }
 
-/* Lift pill */
-.lift-pill {
+.lift-pill,
+.time-chip {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 2px 10px;
-  border-radius: var(--radius-pill);
-  font-size: 0.75rem;
-  font-weight: 600;
-  background: var(--bg-day-badge);
-  color: var(--text-secondary);
-  letter-spacing: 0.03em;
 }
 
 /* ── Divider between rows ───────────────────────────────── */

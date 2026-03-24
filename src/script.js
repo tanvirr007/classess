@@ -183,7 +183,7 @@ function renderRoutine() {
           <div class="card-separator" aria-hidden="true"></div>
           <div class="card-row">
             <span class="card-label">${t.time}</span>
-            <span class="card-value">${cls.time}</span>
+            <span class="card-value"><span class="time-chip">${cls.time}</span></span>
           </div>
         </div>
       `;
