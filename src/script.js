@@ -20,40 +20,40 @@ const routineData = {
       "day": "Sunday",
       "bar": "রবিবার",
       "classes": [
-        { "time": "9:00 - 9:45", "teacher_initials": "RB", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" },
-        { "time": "9:45 - 10:30", "teacher_initials": "AZ", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" }
+        { "time": "9:00 AM - 9:45 AM", "teacher_initials": "RB", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" },
+        { "time": "9:45 AM - 10:30 AM", "teacher_initials": "AZ", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" }
       ]
     },
     {
       "day": "Monday",
       "bar": "সোমবার",
       "classes": [
-        { "time": "9:00 - 9:45", "teacher_initials": "IH", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" },
-        { "time": "9:45 - 10:30", "teacher_initials": "AN", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" }
+        { "time": "9:00 AM - 9:45 AM", "teacher_initials": "IH", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" },
+        { "time": "9:45 AM - 10:30 AM", "teacher_initials": "AN", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" }
       ]
     },
     {
       "day": "Tuesday",
       "bar": "মঙ্গলবার",
       "classes": [
-        { "time": "9:00 - 9:45", "teacher_initials": "HM", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" },
-        { "time": "9:45 - 10:30", "teacher_initials": "SA", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" }
+        { "time": "9:00 AM - 9:45 AM", "teacher_initials": "HM", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" },
+        { "time": "9:45 AM - 10:30 AM", "teacher_initials": "SA", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" }
       ]
     },
     {
       "day": "Wednesday",
       "bar": "বুধবার",
       "classes": [
-        { "time": "9:00 - 9:45", "teacher_initials": "HM", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" },
-        { "time": "9:45 - 10:30", "teacher_initials": "SH", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" }
+        { "time": "9:00 AM - 9:45 AM", "teacher_initials": "HM", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" },
+        { "time": "9:45 AM - 10:30 AM", "teacher_initials": "SH", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" }
       ]
     },
     {
       "day": "Thursday",
       "bar": "বৃহস্পতিবার",
       "classes": [
-        { "time": "9:00 - 9:50", "teacher_initials": "SH", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" },
-        { "time": "9:50 - 10:40", "teacher_initials": "SK", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" }
+        { "time": "9:00 AM - 9:50 AM", "teacher_initials": "SH", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" },
+        { "time": "9:50 AM - 10:40 AM", "teacher_initials": "SK", "subject_code": "NULL", "subject_name": "NULL", "type": "regular", "room": "903", "lift_no": "09" }
       ]
     }
   ]
