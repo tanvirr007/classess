@@ -377,6 +377,8 @@ body {
 }
 
 .card-label {
+  display: flex;
+  justify-content: space-between;
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -385,6 +387,10 @@ body {
   width: 115px;
   flex-shrink: 0;
   padding-top: 2px;
+}
+
+.card-label::after {
+  content: ":";
 }
 
 .card-value {
