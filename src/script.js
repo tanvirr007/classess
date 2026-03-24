@@ -120,12 +120,12 @@ function renderRoutine() {
     section.className = 'day-section';
     section.setAttribute('aria-label', dayData.day);
     
-    // Open first day by default
-    if (dayIndex === 0) section.classList.add('active');
+    // No day open by default
+    // if (dayIndex === 0) section.classList.add('active');
 
     // Day header
     section.innerHTML = `
-      <div class="day-header" role="button" aria-expanded="${dayIndex === 0}" tabindex="0">
+      <div class="day-header" role="button" aria-expanded="false" tabindex="0">
         <div class="day-info">
           <span class="day-name">${dayData.day}</span>
           <span class="day-name-bn">${dayData.bar}</span>
