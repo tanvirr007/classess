@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Honours 2nd Year class routine for the Department of Islamic History and Culture, Ananda Mohan College." />
+  <meta name="theme-color" content="#1a1f36" />
+  <title>H2 Class Routine — Ananda Mohan College</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="src/style.css" />
+</head>
+
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────── -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="header-brand">
+        <h1>H2 Class Routine</h1>
+        <p>Ananda Mohan College &mdash; Islamic History and Culture</p>
+      </div>
+
+      <div class="header-controls" role="toolbar" aria-label="Site controls">
+
+        <button id="theme-toggle" class="btn-toggle" aria-label="Toggle color theme">
+          <span id="theme-icon" aria-hidden="true">
+            <!-- Filled by JS -->
+          </span>
+          <span id="theme-btn-label">Night Mode</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main ────────────────────────────────────────────── -->
+  <main class="main-content" id="main" role="main">
+
+    <div class="routine-intro">
+      <span class="badge" id="badge-text">Weekly Routine</span>
+      <h2>Honours 2nd Year (H2) Class Schedule</h2>
+      <p id="subheading-text">Department of Islamic History and Culture</p>
+    </div>
+
+    <div id="routine-container" aria-live="polite" aria-label="Class routine">
+      <!-- Rendered by script.js -->
+    </div>
+
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────── -->
+  <footer class="site-footer" role="contentinfo">
+    <p id="footer-text">Class Routine — Ananda Mohan College</p>
+  </footer>
+
+  <script src="src/script.js"></script>
+</body>
+
+</html>
