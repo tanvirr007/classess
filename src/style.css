@@ -289,6 +289,22 @@ body {
 .class-card:hover::before { opacity: 1; }
 
 /* Time badge at top */
+.card-header-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.class-index {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .card-time {
   display: inline-flex;
   align-items: center;
@@ -299,7 +315,6 @@ body {
   font-weight: 600;
   padding: 4px 11px;
   border-radius: var(--radius-pill);
-  margin-bottom: 14px;
   letter-spacing: 0.02em;
 }
 

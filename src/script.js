@@ -76,6 +76,7 @@ const labels = {
   lift:         'Lift',
   na:           'N/A',
   classes:      (n) => `${n} ${n === 1 ? 'class' : 'classes'}`,
+  classLabel:   (n) => `Class ${n}`,
   themeDay:     'Day Mode',
   themeNight:   'Night Mode',
   footerNote:   'Class Routine \u2014 Ananda Mohan College',
@@ -134,7 +135,7 @@ function renderRoutine() {
 
     const grid = section.querySelector(`#grid-${dayData.day}`);
 
-    dayData.classes.forEach((cls) => {
+    dayData.classes.forEach((cls, index) => {
       const subjectVal = resolveSubject(cls.subject_name);
       const teacherName = resolveTeacher(cls.teacher_initials);
       const typeLabel = resolveType(cls.type);
@@ -144,9 +145,12 @@ function renderRoutine() {
       card.className = 'class-card';
 
       card.innerHTML = `
-        <div class="card-time">
-          ${icons.clock}
-          <span>${cls.time}</span>
+        <div class="card-header-meta">
+          <span class="class-index">${t.classLabel(index + 1)}</span>
+          <div class="card-time">
+            ${icons.clock}
+            <span>${cls.time}</span>
+          </div>
         </div>
         <div class="card-rows">
           <div class="card-row">
