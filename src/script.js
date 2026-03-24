@@ -71,6 +71,7 @@ const labels = {
   subheading:   'Department of Islamic History and Culture',
   teacher:      'Teacher Name',
   subject:      'Subject Name',
+  code:         'Subject Code',
   room:         'Room No',
   type:         'Type',
   lift:         'Lift',
@@ -158,6 +159,11 @@ function renderRoutine() {
           <div class="card-row">
             <span class="card-label">${t.subject}</span>
             <span class="card-value${isNullSubj ? ' null-val' : ''}">${subjectVal}</span>
+          </div>
+          <div class="card-separator" aria-hidden="true"></div>
+          <div class="card-row">
+            <span class="card-label">${t.code}</span>
+            <span class="card-value">${cls.subject_code || t.na}</span>
           </div>
           <div class="card-separator" aria-hidden="true"></div>
           <div class="card-row">
