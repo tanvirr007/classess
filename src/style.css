@@ -288,13 +288,13 @@ body {
 
 .class-card:hover::before { opacity: 1; }
 
-/* Time badge at top */
+/* Time badge at card-header-meta */
 .card-header-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .class-index {
@@ -304,21 +304,6 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-
-.card-time {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--accent-light);
-  color: var(--accent);
-  font-size: 0.78rem;
-  font-weight: 600;
-  padding: 4px 11px;
-  border-radius: var(--radius-pill);
-  letter-spacing: 0.02em;
-}
-
-.card-time svg { width: 12px; height: 12px; }
 
 /* Card rows */
 .card-rows { display: flex; flex-direction: column; gap: 8px; }

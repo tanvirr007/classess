@@ -74,6 +74,7 @@ const labels = {
   room:         'Room No',
   type:         'Type',
   lift:         'Lift',
+  time:         'Time',
   na:           'N/A',
   classes:      (n) => `${n} ${n === 1 ? 'class' : 'classes'}`,
   classLabel:   (n) => `Class ${n}`,
@@ -147,10 +148,6 @@ function renderRoutine() {
       card.innerHTML = `
         <div class="card-header-meta">
           <span class="class-index">${t.classLabel(index + 1)}</span>
-          <div class="card-time">
-            ${icons.clock}
-            <span>${cls.time}</span>
-          </div>
         </div>
         <div class="card-rows">
           <div class="card-row">
@@ -176,6 +173,11 @@ function renderRoutine() {
           <div class="card-row">
             <span class="card-label">${t.lift}</span>
             <span class="card-value"><span class="lift-pill">${cls.lift_no}</span></span>
+          </div>
+          <div class="card-separator" aria-hidden="true"></div>
+          <div class="card-row">
+            <span class="card-label">${t.time}</span>
+            <span class="card-value">${cls.time}</span>
           </div>
         </div>
       `;
