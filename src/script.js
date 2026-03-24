@@ -1,9 +1,5 @@
 /* ── Routine Data ─────────────────────────────────────────── */
 const routineData = {
-  "routine_title": "Honours 2nd Year (H2) Class Schedule",
-  "department": "Islamic History and Culture",
-  "college": "Ananda Mohan College",
-
   "teachers_codename": {
     "SH": "Khan Sady Hasan",
     "RB": "Md. Rahat Billal Lasker",
@@ -65,9 +61,6 @@ let currentTheme = localStorage.getItem('theme') || 'light';
 /* ── Labels ───────────────────────────────────────────────── */
 const labels = {
   badge: 'Weekly Routine',
-  headerTitle: 'H2 Class Routine',
-  headerSub: 'Ananda Mohan College \u2014 Islamic History and Culture',
-  routineTitle: 'Honours 2nd Year (H2) Class Schedule',
   subheading: 'Department of Islamic History and Culture',
   teacher: 'Teacher Name',
   subject: 'Subject Name',
@@ -81,7 +74,6 @@ const labels = {
   classLabel: (n, total) => `Class ${n}/${total}`,
   themeDay: 'Day Mode',
   themeNight: 'Night Mode',
-  footerNote: 'Class Routine \u2014 Ananda Mohan College',
   typeMap: { regular: 'Regular', lab: 'Lab', tutorial: 'Tutorial' },
 };
 
@@ -95,10 +87,6 @@ const icons = {
   </svg>`,
   moon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-  </svg>`,
-  globe: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
   </svg>`,
   clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
