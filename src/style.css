@@ -159,7 +159,7 @@ body {
 .modal-close {
   position: absolute;
   top: -45px;
-  right: 0;
+  right: -30px;
   background: none;
   border: none;
   color: #fff;

@@ -222,7 +222,6 @@ function toggleTheme() {
   applyTheme();
 }
 
-
 /* ── Logo Modal ─────────────────────────────────────────── */
 function initLogoModal() {
   const modal = document.getElementById('logo-modal');
@@ -233,7 +232,7 @@ function initLogoModal() {
   if (!modal || !logo) return;
 
   const openModal = () => {
-    modalImg.src = logo.src;
+    modalImg.src = logo.getAttribute('src');
     modal.classList.add('active');
     document.body.style.overflow = 'hidden'; // Lock scroll
   };
@@ -245,9 +244,6 @@ function initLogoModal() {
 
   logo.addEventListener('click', openModal);
   closeBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
 
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('active')) {
