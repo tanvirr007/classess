@@ -64,25 +64,25 @@ let currentTheme = localStorage.getItem('theme') || 'light';
 
 /* ── Labels ───────────────────────────────────────────────── */
 const labels = {
-  badge:        'Weekly Routine',
-  headerTitle:  'H2 Class Routine',
-  headerSub:    'Ananda Mohan College \u2014 Islamic History and Culture',
+  badge: 'Weekly Routine',
+  headerTitle: 'H2 Class Routine',
+  headerSub: 'Ananda Mohan College \u2014 Islamic History and Culture',
   routineTitle: 'Honours 2nd Year (H2) Class Schedule',
-  subheading:   'Department of Islamic History and Culture',
-  teacher:      'Teacher Name',
-  subject:      'Subject Name',
-  code:         'Subject Code',
-  room:         'Room No',
-  type:         'Type',
-  lift:         'Lift',
-  time:         'Time',
-  na:           'N/A',
-  classes:      (n) => `${n} ${n === 1 ? 'class' : 'classes'}`,
-  classLabel:   (n) => `Class ${n}`,
-  themeDay:     'Day Mode',
-  themeNight:   'Night Mode',
-  footerNote:   'Class Routine \u2014 Ananda Mohan College',
-  typeMap:      { regular: 'Regular', lab: 'Lab', tutorial: 'Tutorial' },
+  subheading: 'Department of Islamic History and Culture',
+  teacher: 'Teacher Name',
+  subject: 'Subject Name',
+  code: 'Subject Code',
+  room: 'Room No',
+  type: 'Type',
+  lift: 'Lift',
+  time: 'Time',
+  na: 'N/A',
+  classes: (n) => `${n} ${n === 1 ? 'class' : 'classes'}`,
+  classLabel: (n, total) => `Class ${n}/${total}`,
+  themeDay: 'Day Mode',
+  themeNight: 'Night Mode',
+  footerNote: 'Class Routine \u2014 Ananda Mohan College',
+  typeMap: { regular: 'Regular', lab: 'Lab', tutorial: 'Tutorial' },
 };
 
 /* ── SVG Icons ────────────────────────────────────────────── */
@@ -155,7 +155,7 @@ function renderRoutine() {
 
       card.innerHTML = `
         <div class="card-header-meta">
-          <span class="class-index">${t.classLabel(index + 1)}</span>
+          <span class="class-index">${t.classLabel(index + 1, dayData.classes.length)}</span>
           <button class="btn-copy" aria-label="Copy class details" title="Copy">${icons.copy}</button>
         </div>
         <div class="card-rows">
@@ -203,9 +203,9 @@ function renderRoutine() {
 
 /* ── Apply static labels to DOM ────────────────────────────── */
 function applyLabels() {
-  document.getElementById('badge-text').textContent      = labels.badge;
+  document.getElementById('badge-text').textContent = labels.badge;
   document.getElementById('subheading-text').textContent = labels.subheading;
-  document.getElementById('footer-year').textContent     = new Date().getFullYear();
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
   updateThemeLabel();
 }
 
@@ -270,7 +270,7 @@ function handleCopy(event) {
 
   const classIndex = card.querySelector('.class-index').textContent.trim();
   const rows = card.querySelectorAll('.card-row');
-  
+
   let copyText = `${classIndex}\n`;
   rows.forEach(row => {
     const labelMatch = row.querySelector('.card-label');
