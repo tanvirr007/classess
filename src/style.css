@@ -431,6 +431,11 @@ body {
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), color var(--transition);
 }
 
+.chevron svg {
+  width: 18px;
+  height: 18px;
+}
+
 .day-section.active .chevron {
   transform: rotate(180deg);
   color: var(--accent);

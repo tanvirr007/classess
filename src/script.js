@@ -98,8 +98,8 @@ const icons = {
   check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="20 6 9 17 4 12"></polyline>
   </svg>`,
-  chevron: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <polyline points="6 9 12 15 18 9"></polyline>
+  chevron: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 9l6 6 6-6" />
   </svg>`,
 };
 
@@ -119,7 +119,7 @@ function renderRoutine() {
     const section = document.createElement('section');
     section.className = 'day-section';
     section.setAttribute('aria-label', dayData.day);
-    
+
     // No day open by default
     // if (dayIndex === 0) section.classList.add('active');
 
@@ -297,7 +297,7 @@ function handleCopy(event) {
 /* ── Accordion Functionality ────────────────────────────── */
 function initAccordion() {
   const container = document.getElementById('routine-container');
-  
+
   container.addEventListener('click', (e) => {
     const header = e.target.closest('.day-header');
     if (!header) return;
