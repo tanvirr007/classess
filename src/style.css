@@ -283,6 +283,7 @@ body {
 .day-header {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
   margin-bottom: 20px;
 }
@@ -537,10 +538,6 @@ body {
     gap: 24px;
   }
   
-  .day-header {
-    justify-content: center;
-  }
-  
   .day-name {
     font-size: 1.4rem;
   }
@@ -594,6 +591,5 @@ body {
   
   .day-header {
     margin-bottom: 28px;
-    justify-content: center;
   }
 }
