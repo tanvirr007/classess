@@ -128,8 +128,8 @@ function renderRoutine() {
       <div class="day-header" role="button" aria-expanded="false" tabindex="0">
         <div class="day-info">
           <span class="day-name">${dayData.day}</span>
+          <span class="day-divider-bar" aria-hidden="true">|</span>
           <span class="day-name-bn">${dayData.bar}</span>
-          <span class="day-divider" aria-hidden="true"></span>
           <span class="day-count">${t.classes(dayData.classes.length)}</span>
         </div>
         <div class="chevron" aria-hidden="true">${icons.chevron}</div>

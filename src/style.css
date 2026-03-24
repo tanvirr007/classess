@@ -379,7 +379,7 @@ body {
 .day-info {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex: 1;
 }
 
@@ -396,12 +396,11 @@ body {
   font-weight: 500;
 }
 
-.day-divider {
-  width: 40px;
-  height: 2px;
-  background: var(--accent);
-  opacity: 0.3;
-  border-radius: var(--radius-pill);
+.day-divider-bar {
+  color: var(--accent);
+  opacity: 0.4;
+  font-weight: 300;
+  user-select: none;
 }
 
 .day-count {
