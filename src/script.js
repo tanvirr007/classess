@@ -223,10 +223,44 @@ function toggleTheme() {
 }
 
 
+/* ── Logo Modal ─────────────────────────────────────────── */
+function initLogoModal() {
+  const modal = document.getElementById('logo-modal');
+  const modalImg = document.getElementById('modal-img');
+  const logo = document.querySelector('.header-logo');
+  const closeBtn = document.getElementById('modal-close');
+
+  if (!modal || !logo) return;
+
+  const openModal = () => {
+    modalImg.src = logo.src;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Lock scroll
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = ''; // Unlock scroll
+  };
+
+  logo.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+}
+
 /* ── Init ─────────────────────────────────────────────────── */
 function init() {
   applyTheme();
   applyLabels();
+  initLogoModal();
   renderRoutine();
 
   document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
