@@ -278,7 +278,7 @@ function handleCopy(event) {
     if (labelMatch && valueMatch) {
       const labelText = labelMatch.textContent.trim();
       const valueText = valueMatch.textContent.trim();
-      copyText += `${labelText}\n${valueText}\n`;
+      copyText += `${labelText} : ${valueText}\n`;
     }
   });
 
