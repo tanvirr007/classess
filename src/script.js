@@ -98,6 +98,9 @@ const icons = {
   check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="20 6 9 17 4 12"></polyline>
   </svg>`,
+  chevron: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"></polyline>
+  </svg>`,
 };
 
 /* ── Helpers ──────────────────────────────────────────────── */
@@ -112,20 +115,28 @@ function renderRoutine() {
 
   container.innerHTML = '';
 
-  routineData.weekly_schedule.forEach((dayData) => {
+  routineData.weekly_schedule.forEach((dayData, dayIndex) => {
     const section = document.createElement('section');
     section.className = 'day-section';
     section.setAttribute('aria-label', dayData.day);
+    
+    // Open first day by default
+    if (dayIndex === 0) section.classList.add('active');
 
     // Day header
     section.innerHTML = `
-      <div class="day-header">
-        <span class="day-name">${dayData.day}</span>
-        <span class="day-name-bn">${dayData.bar}</span>
-        <span class="day-divider" aria-hidden="true"></span>
-        <span class="day-count">${t.classes(dayData.classes.length)}</span>
+      <div class="day-header" role="button" aria-expanded="${dayIndex === 0}" tabindex="0">
+        <div class="day-info">
+          <span class="day-name">${dayData.day}</span>
+          <span class="day-name-bn">${dayData.bar}</span>
+          <span class="day-divider" aria-hidden="true"></span>
+          <span class="day-count">${t.classes(dayData.classes.length)}</span>
+        </div>
+        <div class="chevron" aria-hidden="true">${icons.chevron}</div>
       </div>
-      <div class="classes-grid" id="grid-${dayData.day}"></div>
+      <div class="classes-container">
+        <div class="classes-grid" id="grid-${dayData.day}"></div>
+      </div>
     `;
 
     container.appendChild(section);
@@ -282,12 +293,57 @@ function handleCopy(event) {
   });
 }
 
+/* ── Accordion Functionality ────────────────────────────── */
+function initAccordion() {
+  const container = document.getElementById('routine-container');
+  
+  container.addEventListener('click', (e) => {
+    const header = e.target.closest('.day-header');
+    if (!header) return;
+
+    const section = header.closest('.day-section');
+    const allSections = container.querySelectorAll('.day-section');
+    const isNowActive = !section.classList.contains('active');
+
+    // Close all other sections
+    allSections.forEach(s => {
+      if (s !== section) {
+        s.classList.remove('active');
+        s.querySelector('.day-header').setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Toggle current section
+    section.classList.toggle('active');
+    header.setAttribute('aria-expanded', isNowActive);
+
+    // Scroll into view if opening
+    if (isNowActive) {
+      setTimeout(() => {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 400); // Wait for transition
+    }
+  });
+
+  // Support Enter and Space keys
+  container.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const header = e.target.closest('.day-header');
+      if (header) {
+        e.preventDefault();
+        header.click();
+      }
+    }
+  });
+}
+
 /* ── Init ─────────────────────────────────────────────────── */
 function init() {
   applyTheme();
   applyLabels();
   initLogoModal();
   renderRoutine();
+  initAccordion();
 
   document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
   document.getElementById('routine-container').addEventListener('click', handleCopy);
