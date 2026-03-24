@@ -373,6 +373,12 @@ body {
   background: var(--bg-surface);
 }
 
+.footer-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: default;
+}
+
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 640px) {
   .header-brand h1 { font-size: 0.9rem; }
