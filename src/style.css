@@ -360,9 +360,9 @@ body {
   padding: 2px 10px;
   border-radius: var(--radius-pill);
   font-size: 0.75rem;
-  font-weight: 700;
-  background: var(--accent);
-  color: #fff;
+  font-weight: 600;
+  background: var(--bg-day-badge);
+  color: var(--text-secondary);
   letter-spacing: 0.03em;
 }
 
