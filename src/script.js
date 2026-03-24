@@ -161,7 +161,7 @@ function renderRoutine() {
         <div class="card-rows">
           <div class="card-row">
             <span class="card-label">${t.lift}</span>
-            <span class="card-value"><span class="lift-pill">${cls.lift_no}</span></span>
+            <span class="card-value">${cls.lift_no}</span>
           </div>
           <div class="card-separator" aria-hidden="true"></div>
           <div class="card-row">
@@ -171,12 +171,12 @@ function renderRoutine() {
           <div class="card-separator" aria-hidden="true"></div>
           <div class="card-row">
             <span class="card-label">${t.type}</span>
-            <span class="card-value"><span class="type-chip">${typeLabel}</span></span>
+            <span class="card-value">${typeLabel}</span>
           </div>
           <div class="card-separator" aria-hidden="true"></div>
           <div class="card-row">
             <span class="card-label">${t.time}</span>
-            <span class="card-value"><span class="time-chip">${cls.time}</span></span>
+            <span class="card-value">${cls.time}</span>
           </div>
           <div class="card-separator" aria-hidden="true"></div>
           <div class="card-row">
