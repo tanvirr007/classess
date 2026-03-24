@@ -294,15 +294,20 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .class-index {
+  display: inline-block;
   font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-muted);
+  font-weight: 800;
+  color: var(--text-on-dark);
+  background: var(--bg-header); /* Use a dark background for contrast */
+  padding: 4px 14px;
+  border-radius: var(--radius-sm);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  box-shadow: 2px 2px 0 var(--accent); /* Subtle accent shadow */
 }
 
 /* Card rows */
