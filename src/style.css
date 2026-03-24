@@ -367,6 +367,38 @@ body {
   box-shadow: 2px 2px 0 var(--accent); /* Subtle accent shadow */
 }
 
+.btn-copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-copy:hover {
+  background: var(--bg-day-badge);
+  color: var(--accent);
+}
+
+.btn-copy:active {
+  transform: scale(0.92);
+}
+
+.btn-copy.copied {
+  color: #10b981; /* Green color for success */
+}
+
+.btn-copy svg {
+  width: 18px;
+  height: 18px;
+}
+
 /* Card rows */
 .card-rows { display: flex; flex-direction: column; gap: 8px; }
 

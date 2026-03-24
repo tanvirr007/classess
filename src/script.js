@@ -103,6 +103,13 @@ const icons = {
   clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
   </svg>`,
+  copy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+  </svg>`,
+  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"></polyline>
+  </svg>`,
 };
 
 /* ── Helpers ──────────────────────────────────────────────── */
@@ -149,6 +156,7 @@ function renderRoutine() {
       card.innerHTML = `
         <div class="card-header-meta">
           <span class="class-index">${t.classLabel(index + 1)}</span>
+          <button class="btn-copy" aria-label="Copy class details" title="Copy">${icons.copy}</button>
         </div>
         <div class="card-rows">
           <div class="card-row">
@@ -252,6 +260,40 @@ function initLogoModal() {
   });
 }
 
+/* ── Copy Functionality ───────────────────────────────────── */
+function handleCopy(event) {
+  const btn = event.target.closest('.btn-copy');
+  if (!btn) return;
+
+  const card = btn.closest('.class-card');
+  if (!card) return;
+
+  const classIndex = card.querySelector('.class-index').textContent.trim();
+  const rows = card.querySelectorAll('.card-row');
+  
+  let copyText = `${classIndex}\n`;
+  rows.forEach(row => {
+    const labelMatch = row.querySelector('.card-label');
+    const valueMatch = row.querySelector('.card-value');
+    if (labelMatch && valueMatch) {
+      const labelText = labelMatch.textContent.trim();
+      const valueText = valueMatch.textContent.trim();
+      copyText += `${labelText}\n${valueText}\n`;
+    }
+  });
+
+  navigator.clipboard.writeText(copyText.trim()).then(() => {
+    btn.innerHTML = icons.check;
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = icons.copy;
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy class details:', err);
+  });
+}
+
 /* ── Init ─────────────────────────────────────────────────── */
 function init() {
   applyTheme();
@@ -260,6 +302,7 @@ function init() {
   renderRoutine();
 
   document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+  document.getElementById('routine-container').addEventListener('click', handleCopy);
 }
 
 document.addEventListener('DOMContentLoaded', init);
