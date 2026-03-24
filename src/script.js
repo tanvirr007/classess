@@ -60,7 +60,6 @@ let currentTheme = localStorage.getItem('theme') || 'light';
 
 /* ── Labels ───────────────────────────────────────────────── */
 const labels = {
-  badge: 'Weekly Routine',
   subheading: 'Department of Islamic History and Culture',
   teacher: 'Teacher Name',
   subject: 'Subject Name',
@@ -203,7 +202,6 @@ function renderRoutine() {
 
 /* ── Apply static labels to DOM ────────────────────────────── */
 function applyLabels() {
-  document.getElementById('badge-text').textContent = labels.badge;
   document.getElementById('subheading-text').textContent = labels.subheading;
   document.getElementById('footer-year').textContent = new Date().getFullYear();
   updateThemeLabel();

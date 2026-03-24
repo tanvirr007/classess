@@ -268,19 +268,6 @@ body {
   margin-bottom: 40px;
 }
 
-.routine-intro .badge {
-  display: inline-block;
-  background: var(--accent-light);
-  color: var(--accent);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 4px 14px;
-  border-radius: var(--radius-pill);
-  margin-bottom: 12px;
-}
-
 .routine-intro h2 {
   font-size: clamp(1.3rem, 3vw, 1.75rem);
   font-weight: 700;
