@@ -160,18 +160,8 @@ function renderRoutine() {
         </div>
         <div class="card-rows">
           <div class="card-row">
-            <span class="card-label">${t.teacher}</span>
-            <span class="card-value">${teacherName}</span>
-          </div>
-          <div class="card-separator" aria-hidden="true"></div>
-          <div class="card-row">
-            <span class="card-label">${t.subject}</span>
-            <span class="card-value${isNullSubj ? ' null-val' : ''}">${subjectVal}</span>
-          </div>
-          <div class="card-separator" aria-hidden="true"></div>
-          <div class="card-row">
-            <span class="card-label">${t.code}</span>
-            <span class="card-value">${cls.subject_code || t.na}</span>
+            <span class="card-label">${t.lift}</span>
+            <span class="card-value"><span class="lift-pill">${cls.lift_no}</span></span>
           </div>
           <div class="card-separator" aria-hidden="true"></div>
           <div class="card-row">
@@ -185,13 +175,23 @@ function renderRoutine() {
           </div>
           <div class="card-separator" aria-hidden="true"></div>
           <div class="card-row">
-            <span class="card-label">${t.lift}</span>
-            <span class="card-value"><span class="lift-pill">${cls.lift_no}</span></span>
+            <span class="card-label">${t.time}</span>
+            <span class="card-value"><span class="time-chip">${cls.time}</span></span>
           </div>
           <div class="card-separator" aria-hidden="true"></div>
           <div class="card-row">
-            <span class="card-label">${t.time}</span>
-            <span class="card-value"><span class="time-chip">${cls.time}</span></span>
+            <span class="card-label">${t.code}</span>
+            <span class="card-value">${cls.subject_code || t.na}</span>
+          </div>
+          <div class="card-separator" aria-hidden="true"></div>
+          <div class="card-row">
+            <span class="card-label">${t.teacher}</span>
+            <span class="card-value">${teacherName}</span>
+          </div>
+          <div class="card-separator" aria-hidden="true"></div>
+          <div class="card-row">
+            <span class="card-label">${t.subject}</span>
+            <span class="card-value${isNullSubj ? ' null-val' : ''}">${subjectVal}</span>
           </div>
         </div>
       `;
