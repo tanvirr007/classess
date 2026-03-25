@@ -194,7 +194,7 @@ function renderRoutine() {
       <div class="day-header" role="button" aria-expanded="false" tabindex="0">
         <div class="day-info">
           <div class="status-dots ${dayStatus}">
-            <span class="dot"></span>
+            ${dayStatus === 'passed' ? `<span class="check-icon">${icons.check}</span>` : '<span class="dot"></span>'}
           </div>
           <span class="day-name">${dayData.day}</span>
           <span class="day-divider-bar" aria-hidden="true">|</span>
