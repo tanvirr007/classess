@@ -414,7 +414,9 @@ body {
   justify-content: center;
   position: absolute;
   right: 24px;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), color var(--transition);
+  transition:
+    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+    color var(--transition);
 }
 
 .chevron svg {
@@ -433,7 +435,9 @@ body {
 .classes-container {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+  transition:
+    grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
   overflow: hidden;
 }
@@ -450,14 +454,37 @@ body {
   justify-content: center;
   gap: 20px;
   min-height: 0;
-  /* Essential for grid-template-rows 0fr/1fr animation */
   padding: 0 20px;
   /* No vertical padding — added only when active to prevent bleed-through */
+  transform: translateY(-10px);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .day-section.active .classes-grid {
   padding: 20px 20px 24px;
+  transform: translateY(0);
 }
+
+/* staggered card reveal */
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.day-section.active .class-card {
+  animation: cardReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.day-section.active .class-card:nth-child(1) { animation-delay: 0.08s; }
+.day-section.active .class-card:nth-child(2) { animation-delay: 0.16s; }
+.day-section.active .class-card:nth-child(3) { animation-delay: 0.22s; }
+.day-section.active .class-card:nth-child(4) { animation-delay: 0.28s; }
 
 /* ── Class Card ─────────────────────────────────────────── */
 .class-card {
