@@ -132,6 +132,36 @@ function getDatesOfWeek() {
   return dates;
 }
 
+/**
+ * Determines if a class has passed or is upcoming based on its end time.
+ * @param {string} dateStr - The date string from getDatesOfWeek (e.g. "26 March 2026")
+ * @param {string} timeStr - The class time string (e.g. "9:00 AM - 9:45 AM")
+ * @returns {string} 'passed' or 'upcoming'
+ */
+function getClassStatus(dateStr, timeStr) {
+  if (!dateStr || !timeStr) return 'upcoming';
+
+  const timeParts = timeStr.split('-');
+  if (timeParts.length < 2) return 'upcoming';
+
+  const endTimeStr = timeParts[1].trim();
+  const match = endTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if (!match) return 'upcoming';
+
+  let hours = parseInt(match[1], 10);
+  const minutes = parseInt(match[2], 10);
+  const ampm = match[3].toUpperCase();
+
+  if (ampm === 'PM' && hours < 12) hours += 12;
+  if (ampm === 'AM' && hours === 12) hours = 0;
+
+  const classEndTime = new Date(dateStr);
+  classEndTime.setHours(hours, minutes, 0, 0);
+
+  const now = new Date();
+  return now > classEndTime ? 'passed' : 'upcoming';
+}
+
 /* ── Render ───────────────────────────────────────────────── */
 function renderRoutine() {
   const t = labels;
@@ -146,6 +176,17 @@ function renderRoutine() {
     section.className = 'day-section';
     section.setAttribute('aria-label', dayData.day);
 
+    let dayStatus = 'passed';
+    if (!dayData.classes || dayData.classes.length === 0) {
+      dayStatus = 'passed';
+    } else {
+      dayData.classes.forEach(cls => {
+        if (getClassStatus(dateStr, cls.time) === 'upcoming') {
+          dayStatus = 'upcoming';
+        }
+      });
+    }
+
     // No day open by default
     // if (dayIndex === 0) section.classList.add('active');
 
@@ -153,6 +194,10 @@ function renderRoutine() {
     section.innerHTML = `
       <div class="day-header" role="button" aria-expanded="false" tabindex="0">
         <div class="day-info">
+          <div class="status-dots ${dayStatus}">
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
           <span class="day-name">${dayData.day}</span>
           <span class="day-divider-bar" aria-hidden="true">|</span>
           <span class="day-name-bn">${dayData.bar}</span>

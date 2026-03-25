@@ -538,6 +538,29 @@ body {
   opacity: 1;
 }
 
+/* Status Dots */
+.status-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+}
+
+.status-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transition: background-color var(--transition);
+}
+
+.status-dots.passed .dot {
+  background-color: #ef4444; /* Red for passed */
+}
+
+.status-dots.upcoming .dot {
+  background-color: #10b981; /* Green for upcoming */
+}
+
 /* Time badge at card-header-meta */
 .card-header-meta {
   display: flex;
