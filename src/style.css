@@ -377,6 +377,12 @@ body {
   letter-spacing: -0.02em;
 }
 
+.day-date {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
 .day-name-bn {
   font-size: 0.95rem;
   color: var(--text-secondary);

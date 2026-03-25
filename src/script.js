@@ -107,14 +107,40 @@ const resolveSubject = (val) => (val === 'NULL' || !val) ? labels.na : val;
 const resolveTeacher = (initials) => routineData.teachers_codename[initials] || initials;
 const resolveType = (type) => labels.typeMap[type.toLowerCase()] || (type.charAt(0).toUpperCase() + type.slice(1).toLowerCase());
 
+/**
+ * Calculates dates for the current week (Sun-Sat)
+ * @returns {Object} Mapping of day names to formatted date strings
+ */
+function getDatesOfWeek() {
+  const now = new Date();
+  const currentDay = now.getDay(); // 0 (Sun) to 6 (Sat)
+  const sunday = new Date(now);
+  sunday.setDate(now.getDate() - currentDay);
+
+  const dates = {};
+  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(sunday);
+    d.setDate(sunday.getDate() + i);
+    const day = d.getDate();
+    const month = d.toLocaleString('default', { month: 'long' });
+    const year = d.getFullYear();
+    dates[dayNames[i]] = `${day} ${month} ${year}`;
+  }
+  return dates;
+}
+
 /* ── Render ───────────────────────────────────────────────── */
 function renderRoutine() {
   const t = labels;
   const container = document.getElementById('routine-container');
+  const weekDates = getDatesOfWeek();
 
   container.innerHTML = '';
 
   routineData.weekly_schedule.forEach((dayData, dayIndex) => {
+    const dateStr = weekDates[dayData.day] || '';
     const section = document.createElement('section');
     section.className = 'day-section';
     section.setAttribute('aria-label', dayData.day);
@@ -129,6 +155,8 @@ function renderRoutine() {
           <span class="day-name">${dayData.day}</span>
           <span class="day-divider-bar" aria-hidden="true">|</span>
           <span class="day-name-bn">${dayData.bar}</span>
+          <span class="day-divider-bar" aria-hidden="true">|</span>
+          <span class="day-date">${dateStr}</span>
           <span class="day-divider-bar" aria-hidden="true">|</span>
           <span class="day-count">${t.classes(dayData.classes.length)}</span>
         </div>
