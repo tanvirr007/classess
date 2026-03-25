@@ -190,12 +190,10 @@ function renderRoutine() {
     // No day open by default
     // if (dayIndex === 0) section.classList.add('active');
 
-    // Day header
     section.innerHTML = `
       <div class="day-header" role="button" aria-expanded="false" tabindex="0">
         <div class="day-info">
           <div class="status-dots ${dayStatus}">
-            <span class="dot"></span>
             <span class="dot"></span>
           </div>
           <span class="day-name">${dayData.day}</span>
