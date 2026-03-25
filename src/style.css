@@ -377,12 +377,6 @@ body {
   letter-spacing: -0.02em;
 }
 
-.day-date {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
 .day-name-bn {
   font-size: 0.95rem;
   color: var(--text-secondary);
@@ -477,6 +471,7 @@ body {
     opacity: 0;
     transform: translateY(14px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -487,10 +482,21 @@ body {
   animation: cardReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.day-section.active .class-card:nth-child(1) { animation-delay: 0.08s; }
-.day-section.active .class-card:nth-child(2) { animation-delay: 0.16s; }
-.day-section.active .class-card:nth-child(3) { animation-delay: 0.22s; }
-.day-section.active .class-card:nth-child(4) { animation-delay: 0.28s; }
+.day-section.active .class-card:nth-child(1) {
+  animation-delay: 0.08s;
+}
+
+.day-section.active .class-card:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+.day-section.active .class-card:nth-child(3) {
+  animation-delay: 0.22s;
+}
+
+.day-section.active .class-card:nth-child(4) {
+  animation-delay: 0.28s;
+}
 
 /* ── Class Card ─────────────────────────────────────────── */
 .class-card {
@@ -687,12 +693,13 @@ body {
     font-size: 0.65rem;
   }
 
-  #theme-btn-label {
-    display: none;
+  .day-info {
+    font-size: 0.85rem;
+    gap: 8px;
   }
 
-  .btn-toggle {
-    padding: 8px 10px;
+  .day-name {
+    font-size: 1rem;
   }
 
   .main-content {

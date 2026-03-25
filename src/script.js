@@ -68,6 +68,7 @@ const labels = {
   type: 'Class Type',
   lift: 'Lift',
   time: 'Class Time',
+  date: 'Class Date',
   na: 'N/A',
   classes: (n) => `${n} ${n === 1 ? 'class' : 'classes'}`,
   classLabel: (n, total) => `Class ${n}/${total}`,
@@ -156,8 +157,6 @@ function renderRoutine() {
           <span class="day-divider-bar" aria-hidden="true">|</span>
           <span class="day-name-bn">${dayData.bar}</span>
           <span class="day-divider-bar" aria-hidden="true">|</span>
-          <span class="day-date">${dateStr}</span>
-          <span class="day-divider-bar" aria-hidden="true">|</span>
           <span class="day-count">${t.classes(dayData.classes.length)}</span>
         </div>
         <div class="chevron" aria-hidden="true">${icons.chevron}</div>
@@ -199,6 +198,11 @@ function renderRoutine() {
           <div class="card-row">
             <span class="card-label">${t.type}</span>
             <span class="card-value">${typeLabel}</span>
+          </div>
+          <div class="card-separator" aria-hidden="true"></div>
+          <div class="card-row">
+            <span class="card-label">${t.date}</span>
+            <span class="card-value">${dateStr}</span>
           </div>
           <div class="card-separator" aria-hidden="true"></div>
           <div class="card-row">
