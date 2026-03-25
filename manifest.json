@@ -1,0 +1,17 @@
+{
+  "name": "Class Routine",
+  "short_name": "Class Routine",
+  "description": "Class routine for Ananda Mohan College",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a1f36",
+  "icons": [
+    {
+      "src": "src/img/icon.png",
+      "sizes": "192x192 512x512 ignore",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
