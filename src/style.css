@@ -540,10 +540,13 @@ body {
 
 /* Status Dots */
 .status-dots {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 4px;
-  justify-content: center;
 }
 
 .status-dots .dot {
