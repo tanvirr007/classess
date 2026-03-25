@@ -133,6 +133,23 @@ function getDatesOfWeek() {
 }
 
 /**
+ * Parses a time string (e.g. "9:00 AM") into a Date object on the given date string.
+ */
+function parseTimeStr(dateStr, singleTimeStr) {
+  const match = singleTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if (!match) return null;
+  let hours = parseInt(match[1], 10);
+  const minutes = parseInt(match[2], 10);
+  const ampm = match[3].toUpperCase();
+  if (ampm === 'PM' && hours < 12) hours += 12;
+  if (ampm === 'AM' && hours === 12) hours = 0;
+  
+  const d = new Date(dateStr);
+  d.setHours(hours, minutes, 0, 0);
+  return d;
+}
+
+/**
  * Determines if a class has passed or is upcoming based on its end time.
  * @param {string} dateStr - The date string from getDatesOfWeek (e.g. "26 March 2026")
  * @param {string} timeStr - The class time string (e.g. "9:00 AM - 9:45 AM")
@@ -144,19 +161,8 @@ function getClassStatus(dateStr, timeStr) {
   const timeParts = timeStr.split('-');
   if (timeParts.length < 2) return 'upcoming';
 
-  const endTimeStr = timeParts[1].trim();
-  const match = endTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
-  if (!match) return 'upcoming';
-
-  let hours = parseInt(match[1], 10);
-  const minutes = parseInt(match[2], 10);
-  const ampm = match[3].toUpperCase();
-
-  if (ampm === 'PM' && hours < 12) hours += 12;
-  if (ampm === 'AM' && hours === 12) hours = 0;
-
-  const classEndTime = new Date(dateStr);
-  classEndTime.setHours(hours, minutes, 0, 0);
+  const classEndTime = parseTimeStr(dateStr, timeParts[1].trim());
+  if (!classEndTime) return 'upcoming';
 
   const now = new Date();
   return now > classEndTime ? 'passed' : 'upcoming';
@@ -411,6 +417,83 @@ function initAccordion() {
   });
 }
 
+/* ── Countdown Widget ─────────────────────────────────────── */
+function updateCountdown() {
+  const widget = document.getElementById('countdown-widget');
+  if (!widget) return;
+
+  const now = new Date();
+  const weekDates = getDatesOfWeek();
+  let activeClass = null;
+  let nextClass = null;
+
+  const allWeeklyClasses = [];
+  routineData.weekly_schedule.forEach(dayData => {
+    const dateStr = weekDates[dayData.day];
+    if (!dateStr) return;
+    dayData.classes.forEach(cls => {
+      if (!cls.time || cls.time.indexOf('-') === -1) return;
+      const parts = cls.time.split('-');
+      const start = parseTimeStr(dateStr, parts[0].trim());
+      const end = parseTimeStr(dateStr, parts[1].trim());
+      if (start && end) {
+        allWeeklyClasses.push({
+          subject: resolveSubject(cls.subject_name),
+          start,
+          end
+        });
+      }
+    });
+  });
+
+  allWeeklyClasses.sort((a, b) => a.start - b.start);
+
+  for (const cls of allWeeklyClasses) {
+    if (now >= cls.start && now <= cls.end) {
+      activeClass = cls;
+      break;
+    } else if (now < cls.start && !nextClass) {
+      nextClass = cls;
+    }
+  }
+
+  let targetTime = null;
+  let messagePrefix = '';
+
+  if (activeClass) {
+    targetTime = activeClass.end;
+    const sName = activeClass.subject !== labels.na ? ` <strong>${activeClass.subject}</strong>` : ' class';
+    messagePrefix = `Time remaining in${sName}:`;
+  } else if (nextClass) {
+    targetTime = nextClass.start;
+    const isToday = nextClass.start.toDateString() === now.toDateString();
+    const dayName = isToday ? '' : ` on ${nextClass.start.toLocaleDateString('en-US', {weekday: 'short'})}`;
+    messagePrefix = `Next class starts${dayName} in:`;
+  } else {
+    widget.innerHTML = `<span class="clock-icon" style="color:var(--text-muted)">${icons.check}</span> <span style="color:var(--text-muted)">No more classes this week!</span>`;
+    widget.style.borderColor = 'transparent';
+    widget.style.boxShadow = 'none';
+    return;
+  }
+
+  widget.style.borderColor = '';
+  widget.style.boxShadow = '';
+
+  const diffMs = targetTime - now;
+  if (diffMs <= 0) return;
+
+  const hours = Math.floor(diffMs / (1000 * 60 * 60));
+  const mins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((diffMs % (1000 * 60)) / 1000);
+
+  let timeStr = '';
+  if (hours > 0) timeStr += `${hours}h `;
+  if (hours > 0 || mins > 0) timeStr += `${mins}m `;
+  timeStr += `${secs}s`;
+
+  widget.innerHTML = `<span class="clock-icon">${icons.clock}</span> <span>${messagePrefix} <strong style="color:var(--accent);">${timeStr}</strong></span>`;
+}
+
 /* ── Init ─────────────────────────────────────────────────── */
 function init() {
   applyTheme();
@@ -418,6 +501,10 @@ function init() {
   initLogoModal();
   renderRoutine();
   initAccordion();
+
+  // Initialize and run countdown
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 
   document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
   document.getElementById('routine-container').addEventListener('click', handleCopy);

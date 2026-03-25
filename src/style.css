@@ -281,6 +281,39 @@ body {
   font-size: 0.9rem;
 }
 
+/* ── Countdown Widget ───────────────────────────────────── */
+.countdown-widget {
+  background: var(--bg-surface);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  margin-bottom: 28px;
+  text-align: center;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  transition: all var(--transition);
+}
+
+.countdown-widget:empty {
+  display: none;
+}
+
+.countdown-widget .clock-icon {
+  display: flex;
+  align-items: center;
+  color: var(--accent);
+}
+
+.countdown-widget .clock-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
 /* ── Day Section ────────────────────────────────────────── */
 .day-section {
   background: var(--bg-surface);
