@@ -450,6 +450,11 @@ body {
   gap: 20px;
   min-height: 0;
   /* Essential for grid-template-rows 0fr/1fr animation */
+  padding: 0 20px;
+  /* No vertical padding — added only when active to prevent bleed-through */
+}
+
+.day-section.active .classes-grid {
   padding: 20px 20px 24px;
 }
 
