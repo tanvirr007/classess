@@ -359,8 +359,6 @@ body {
 .day-section.active .day-header {
   background: var(--bg-day-badge);
   border-bottom: 1px solid var(--border);
-  margin-bottom: 20px;
-  /* Reduced from 24px */
 }
 
 .day-info {
@@ -428,9 +426,7 @@ body {
   color: var(--accent);
 }
 
-.day-section.active .day-header {
-  margin-bottom: 20px;
-}
+
 
 /* ── Classes Container (Accordion Core) ────────────────── */
 .classes-container {
@@ -454,8 +450,7 @@ body {
   gap: 20px;
   min-height: 0;
   /* Essential for grid-template-rows 0fr/1fr animation */
-  padding-bottom: 20px;
-  /* Reduced from 30px to eliminate "extra space" user mentioned */
+  padding: 20px 20px 24px;
 }
 
 /* ── Class Card ─────────────────────────────────────────── */
