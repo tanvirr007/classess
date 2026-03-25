@@ -300,6 +300,10 @@ function updateThemeLabel() {
   const themeLabel = document.getElementById('theme-btn-label');
   themeIcon.innerHTML = isDark ? icons.sun : icons.moon;
   themeLabel.textContent = isDark ? labels.themeDay : labels.themeNight;
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  if (themeToggleBtn) {
+    themeToggleBtn.title = isDark ? 'Switch to Day Mode' : 'Switch to Night Mode';
+  }
 }
 
 /* ── Toggle handlers ──────────────────────────────────────── */
