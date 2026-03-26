@@ -1036,6 +1036,15 @@ body {
     font-size: 0.65rem;
   }
 
+  #theme-btn-label {
+    display: none;
+  }
+
+  .btn-toggle {
+    padding: 8px;
+    gap: 0;
+  }
+
   .day-info {
     font-size: 0.85rem;
     gap: 8px;
