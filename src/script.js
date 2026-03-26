@@ -401,11 +401,15 @@ function initAccordion() {
     section.classList.toggle('active');
     header.setAttribute('aria-expanded', isNowActive);
 
-    // Scroll into view if opening
+    // Scroll behavior
     if (isNowActive) {
       setTimeout(() => {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 400); // Wait for transition
+      }, 450); // Small delay to wait for grid expansion
+    } else {
+      // If closing, move to the top of the routine/page
+      const mainOffset = document.getElementById('main').offsetTop - 20;
+      window.scrollTo({ top: mainOffset, behavior: 'smooth' });
     }
   });
 
