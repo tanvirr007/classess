@@ -671,8 +671,18 @@ function initSearch() {
 
   searchInput.addEventListener('input', performSearch);
   
-  // Initialize Custom Select with performSearch callback
-  initCustomSelect(performSearch);
+  // Initialize Custom Select with a callback that resets the search
+  initCustomSelect(() => {
+    searchInput.value = '';
+    performSearch();
+    
+    // Collapse all expanded sections for a full reset
+    const days = document.querySelectorAll('.day-section');
+    days.forEach(day => {
+      day.classList.remove('active');
+      day.querySelector('.day-header').setAttribute('aria-expanded', 'false');
+    });
+  });
 
   clearBtn.addEventListener('click', () => {
     searchInput.value = '';
