@@ -823,6 +823,7 @@ body {
   cursor: pointer;
   transition: all var(--transition);
   user-select: none;
+  white-space: nowrap;
 }
 
 .select-button:hover {
@@ -1055,7 +1056,7 @@ body {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
   .search-wrapper {
     flex-wrap: wrap;
     padding: 12px;
