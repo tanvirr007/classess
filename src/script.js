@@ -593,23 +593,27 @@ function initSearch() {
     routineContainer.classList.toggle('hidden', !hasAnyMatch && query.length > 0);
   };
 
+  const collapseAllDays = () => {
+    const days = document.querySelectorAll('.day-section');
+    days.forEach(day => {
+      day.classList.remove('active');
+      day.querySelector('.day-header').setAttribute('aria-expanded', 'false');
+    });
+  };
+
   searchInput.addEventListener('input', performSearch);
 
   clearBtn.addEventListener('click', () => {
     searchInput.value = '';
     performSearch();
+    collapseAllDays();
     searchInput.focus();
   });
 
   resetBtn.addEventListener('click', () => {
     searchInput.value = '';
     performSearch();
-    // Optionally collapse all days on reset
-    const days = document.querySelectorAll('.day-section');
-    days.forEach(day => {
-      day.classList.remove('active');
-      day.querySelector('.day-header').setAttribute('aria-expanded', 'false');
-    });
+    collapseAllDays();
   });
 }
 
