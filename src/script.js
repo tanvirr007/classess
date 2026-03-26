@@ -602,11 +602,11 @@ function initPlaceholderAnimation() {
       currentIndex++;
       timeoutId = setTimeout(typeLoop, 80); // Speed up typing slightly for repeating effect
     } else {
-      // Reached the end. Wait 2 seconds, then restart
+      // Reached the end. Wait 7.5 seconds, then restart
       timeoutId = setTimeout(() => {
         currentIndex = 0;
         typeLoop();
-      }, 2000);
+      }, 7500);
     }
   };
 
