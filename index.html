@@ -56,12 +56,24 @@
 
     <div class="search-container">
       <div class="search-wrapper">
-        <select id="search-category" class="search-category" aria-label="Search category">
-          <option value="all">All</option>
-          <option value="teacher">Teacher</option>
-          <option value="subject">Subject</option>
-          <option value="code">Code</option>
-        </select>
+        <div class="custom-select" id="category-custom-select">
+          <input type="hidden" id="search-category" value="all">
+          <button type="button" class="select-button" id="category-btn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="category-label">All</span>
+            <span class="chevron-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <ul class="select-dropdown" role="listbox" id="category-list">
+            <li role="option" data-value="all" class="active">All</li>
+            <li role="option" data-value="teacher">Teacher</li>
+            <li role="option" data-value="subject">Subject</li>
+            <li role="option" data-value="code">Code</li>
+          </ul>
+        </div>
         <div class="search-input-wrapper">
           <span class="search-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

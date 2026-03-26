@@ -534,10 +534,52 @@ function updateCountdown() {
   widget.innerHTML = `<span class="clock-icon">${icons.clock}</span> <span>${messagePrefix} <strong style="color:var(--accent);">${timeStr}</strong></span>`;
 }
 
+/* ── Custom Select Logic ─────────────────────────────────── */
+function initCustomSelect(onSelect) {
+  const container = document.getElementById('category-custom-select');
+  const btn = document.getElementById('category-btn');
+  const list = document.getElementById('category-list');
+  const label = document.getElementById('category-label');
+  const hiddenInput = document.getElementById('search-category');
+  const options = list.querySelectorAll('li');
+
+  if (!container || !btn || !list) return;
+
+  const toggleSelect = (state) => {
+    const isOpen = state !== undefined ? state : !container.classList.contains('open');
+    container.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', isOpen);
+  };
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleSelect();
+  });
+
+  options.forEach(opt => {
+    opt.addEventListener('click', (e) => {
+      const value = opt.getAttribute('data-value');
+      const text = opt.textContent;
+
+      // Update UI
+      label.textContent = text;
+      hiddenInput.value = value;
+      
+      options.forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+
+      toggleSelect(false);
+      if (onSelect) onSelect();
+    });
+  });
+
+  document.addEventListener('click', () => toggleSelect(false));
+}
+
 /* ── Search Logic ─────────────────────────────────────────── */
 function initSearch() {
   const searchInput = document.getElementById('class-search');
-  const searchCategory = document.getElementById('search-category');
+  const searchCategoryInput = document.getElementById('search-category');
   const clearBtn = document.getElementById('search-clear');
   const noResults = document.getElementById('no-results');
   const resetBtn = document.getElementById('reset-search');
@@ -547,7 +589,7 @@ function initSearch() {
 
   const performSearch = () => {
     const query = searchInput.value.toLowerCase().trim();
-    const category = searchCategory ? searchCategory.value : 'all';
+    const category = searchCategoryInput ? searchCategoryInput.value : 'all';
     const cards = document.querySelectorAll('.class-card');
     const days = document.querySelectorAll('.day-section');
     
@@ -569,13 +611,10 @@ function initSearch() {
         targetText = card.getAttribute('data-search') || '';
       }
 
-      // Improved matching: use word boundaries for short queries
-      // to avoid matching "sa" in "Hasan"
       let isMatch = false;
       if (query.length === 0) {
         isMatch = true;
       } else {
-        // Use word boundary for queries length < 3 or specific categories
         if (query.length <= 2 || category !== 'all') {
           const regex = new RegExp('\\b' + query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
           isMatch = regex.test(targetText);
@@ -588,53 +627,52 @@ function initSearch() {
       if (isMatch && query.length > 0) hasAnyMatch = true;
     });
 
-    // Filter days based on visible cards
     days.forEach(day => {
       const visibleCardsInDay = day.querySelectorAll('.class-card:not(.hidden)');
       const shouldShowDay = visibleCardsInDay.length > 0;
       day.classList.toggle('hidden', !shouldShowDay);
       
-      // Auto-expand day if searching and there's a match
       if (query.length > 0 && shouldShowDay) {
         day.classList.add('active');
         day.querySelector('.day-header').setAttribute('aria-expanded', 'true');
       }
     });
 
-    if (query.length === 0) {
-        hasAnyMatch = true; // Show routine if no query
-    }
-
-    // Show/hide no results message
-    if (noResults) {
-      noResults.classList.toggle('hidden', hasAnyMatch);
-    }
-    
-    // Hide routine container if no matches
+    if (query.length === 0) hasAnyMatch = true;
+    if (noResults) noResults.classList.toggle('hidden', hasAnyMatch);
     routineContainer.classList.toggle('hidden', !hasAnyMatch);
   };
 
   const resetSearch = () => {
     searchInput.value = '';
-    if (searchCategory) searchCategory.value = 'all';
+    
+    // Reset custom select UI
+    const hiddenInput = document.getElementById('search-category');
+    const label = document.getElementById('category-label');
+    const options = document.querySelectorAll('#category-list li');
+    
+    if (hiddenInput) hiddenInput.value = 'all';
+    if (label) label.textContent = 'All';
+    options.forEach(opt => {
+      opt.classList.toggle('active', opt.getAttribute('data-value') === 'all');
+    });
+
     performSearch();
     
-    // Collapse all days
     const days = document.querySelectorAll('.day-section');
     days.forEach(day => {
       day.classList.remove('active');
       day.querySelector('.day-header').setAttribute('aria-expanded', 'false');
     });
     
-    // Scroll to top
     const mainOffset = document.getElementById('main').offsetTop - 20;
     window.scrollTo({ top: mainOffset, behavior: 'smooth' });
   };
 
   searchInput.addEventListener('input', performSearch);
-  if (searchCategory) {
-    searchCategory.addEventListener('change', performSearch);
-  }
+  
+  // Initialize Custom Select with performSearch callback
+  initCustomSelect(performSearch);
 
   clearBtn.addEventListener('click', () => {
     searchInput.value = '';
