@@ -283,10 +283,37 @@ function renderRoutine() {
 
 /* ── Apply static labels to DOM ────────────────────────────── */
 function applyLabels() {
-  document.getElementById('subheading-text').textContent = labels.subheading;
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  const subheading = document.getElementById('subheading-text');
+  if (subheading) subheading.textContent = labels.subheading;
+  
+  const footerYear = document.getElementById('footer-year');
+  if (footerYear) footerYear.textContent = new Date().getFullYear();
+  
   updateThemeLabel();
 }
+
+/**
+ * Fetches version info from src/version.json and updates the footer
+ */
+async function initVersion() {
+  try {
+    const response = await fetch('src/version.json');
+    if (!response.ok) throw new Error('Failed to fetch version info');
+    const data = await response.json();
+    
+    const releaseDateEl = document.getElementById('release-date');
+    const versionNumberEl = document.getElementById('version-number');
+    
+    if (releaseDateEl) releaseDateEl.textContent = data.release_date;
+    if (versionNumberEl) versionNumberEl.textContent = data.version;
+  } catch (err) {
+    console.error('Error loading version info:', err);
+    // Hide version info if it fails to load
+    const infoEl = document.querySelector('.version-info');
+    if (infoEl) infoEl.style.display = 'none';
+  }
+}
+
 
 /* ── Theme ────────────────────────────────────────────────── */
 function applyTheme() {
@@ -509,6 +536,7 @@ function init() {
   initLogoModal();
   renderRoutine();
   initAccordion();
+  initVersion();
 
   // Initialize and run countdown
   updateCountdown();

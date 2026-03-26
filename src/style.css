@@ -761,6 +761,16 @@ body {
   cursor: default;
 }
 
+.version-info {
+  margin-top: 8px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  opacity: 0.85;
+  letter-spacing: 0.01em;
+}
+
+
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 640px) {
   .header-brand h1 {

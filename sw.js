@@ -1,9 +1,10 @@
-const CACHE_NAME = 'class-routine-v1';
+const CACHE_NAME = 'class-routine-v1.1';
 const ASSETS = [
   './',
   './index.html',
   './src/style.css',
   './src/script.js',
+  './src/version.json',
   './src/img/logo.png',
   './src/img/icon.png',
   './src/img/favicon.png',
