@@ -1043,6 +1043,10 @@ body {
   .btn-toggle {
     padding: 8px;
     gap: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    justify-content: center;
   }
 
   .day-info {
