@@ -478,7 +478,7 @@ function updateCountdown() {
     const dayName = isToday ? '' : ` on ${nextClass.start.toLocaleDateString('en-US', {weekday: 'short'})}`;
     messagePrefix = `Next class starts${dayName} in:`;
   } else {
-    widget.innerHTML = `<span class="clock-icon" style="color:var(--text-muted)">${icons.check}</span> <span style="color:var(--text-muted)">No more classes this week!</span>`;
+    widget.innerHTML = `<span class="clock-icon" style="color:var(--accent); opacity:0.7;" title="Completed">${icons.check}</span> <span style="color:var(--text-muted)">No more classes this week!</span>`;
     widget.style.borderColor = 'transparent';
     widget.style.boxShadow = 'none';
     return;
