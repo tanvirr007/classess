@@ -583,6 +583,7 @@ function initPlaceholderAnimation() {
 
   const text = "Search your class schedule…";
   let currentIndex = 0;
+  let isDeleting = false;
   let showCursor = true;
   let timeoutId = null;
 
@@ -598,15 +599,20 @@ function initPlaceholderAnimation() {
     showCursor = true; 
     searchInput.placeholder = text.substring(0, currentIndex) + "|";
     
-    if (currentIndex < text.length) {
+    if (!isDeleting && currentIndex < text.length) {
       currentIndex++;
       timeoutId = setTimeout(typeLoop, 80); // Speed up typing slightly for repeating effect
-    } else {
-      // Reached the end. Wait 7.5 seconds, then restart
-      timeoutId = setTimeout(() => {
-        currentIndex = 0;
-        typeLoop();
-      }, 7500);
+    } else if (isDeleting && currentIndex > 0) {
+      currentIndex--;
+      timeoutId = setTimeout(typeLoop, 30); // Fast delete speed
+    } else if (!isDeleting && currentIndex === text.length) {
+      // Reached the end. Wait 7.5 seconds, then start deleting
+      isDeleting = true;
+      timeoutId = setTimeout(typeLoop, 7500);
+    } else if (isDeleting && currentIndex === 0) {
+      // Reached the beginning. Wait briefly, then start typing again
+      isDeleting = false;
+      timeoutId = setTimeout(typeLoop, 500);
     }
   };
 
@@ -617,6 +623,7 @@ function initPlaceholderAnimation() {
     if (searchInput.value.length === 0) {
       clearTimeout(timeoutId);
       currentIndex = 0;
+      isDeleting = false;
       showCursor = true;
       typeLoop();
     }
