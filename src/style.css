@@ -797,6 +797,10 @@ body {
   transform: translateY(-1px);
 }
 
+.search-wrapper {
+  z-index: 50; /* Ensure search bar stays above routine cards but below header */
+}
+
 /* ── Custom Styled Dropdown ─────────────────────────────── */
 .custom-select {
   position: relative;
@@ -850,16 +854,17 @@ body {
 
 .select-dropdown {
   position: absolute;
-  top: calc(100% + 12px);
+  top: calc(100% + 8px); /* Slightly closer */
   left: 0;
-  width: 100%;
+  min-width: 160px; /* Ensure it's wide enough for text */
+  width: auto; /* Allow it to be wider than the button if needed */
   background: var(--bg-surface);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   list-style: none;
   padding: 8px;
-  z-index: 1000;
+  z-index: 1100; /* Higher than siblings */
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px) scale(0.95);
@@ -1047,6 +1052,23 @@ body {
 
   .card-label {
     min-width: 76px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-wrapper {
+    flex-wrap: wrap;
+    padding: 12px;
+    height: auto;
+  }
+  
+  .custom-select {
+    width: 100%;
+  }
+  
+  .search-input-wrapper {
+    width: 100%;
+    margin-top: 8px;
   }
 }
 
