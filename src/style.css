@@ -287,7 +287,9 @@ body {
   border: 1.5px solid var(--accent);
   border-radius: var(--radius-md);
   padding: 14px 20px;
-  margin-bottom: 28px;
+  margin: 0 auto 28px;
+  max-width: 700px;
+  width: 100%;
   text-align: center;
   color: var(--text-primary);
   box-shadow: var(--shadow-sm);
