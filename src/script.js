@@ -228,11 +228,10 @@ function renderRoutine() {
       const card = document.createElement('article');
       card.className = 'class-card';
       
-      // Combine searchable terms for efficient filtering
+      // Combine searchable terms for efficient filtering (Teacher, Subject, Code)
       const searchTerms = [
         subjectVal,
         teacherName,
-        cls.room,
         cls.subject_code || '',
         cls.teacher_initials
       ].join(' ').toLowerCase();
