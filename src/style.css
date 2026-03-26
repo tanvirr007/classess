@@ -1185,3 +1185,10 @@ body {
   }
 
 }
+
+/* ── Mobile: hide ", Mymensingh" in header ──────────────── */
+@media (max-width: 600px) {
+  .hide-mobile {
+    display: none;
+  }
+}
