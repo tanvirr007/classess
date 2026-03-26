@@ -741,6 +741,14 @@ function initSearch() {
   clearBtn.addEventListener('click', () => {
     searchInput.value = '';
     performSearch();
+    
+    // Collapse all expanded sections
+    const days = document.querySelectorAll('.day-section');
+    days.forEach(day => {
+      day.classList.remove('active');
+      day.querySelector('.day-header').setAttribute('aria-expanded', 'false');
+    });
+    
     searchInput.focus();
   });
 
