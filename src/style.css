@@ -771,10 +771,10 @@ body {
 }
 
 
-/* ── Search Bar ─────────────────────────────────────────── */
+/* ── Search Bar (Main Content Version) ───────────────────── */
 .search-container {
-  max-width: 600px;
-  margin: 0 auto 32px;
+  max-width: 700px;
+  margin: 0 auto 36px;
   width: 100%;
 }
 
@@ -788,6 +788,7 @@ body {
   padding: 0 16px;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition);
+  gap: 12px;
 }
 
 .search-wrapper:focus-within {
@@ -796,11 +797,36 @@ body {
   transform: translateY(-1px);
 }
 
+.search-category {
+  background: var(--bg-day-badge);
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  font-family: inherit;
+  transition: background var(--transition);
+}
+
+.search-category:hover {
+  background: var(--accent-light);
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 12px;
+}
+
 .search-icon {
   display: flex;
   align-items: center;
   color: var(--text-muted);
-  margin-right: 12px;
+  flex-shrink: 0;
 }
 
 .search-icon svg {
@@ -814,7 +840,7 @@ body {
   background: transparent;
   padding: 14px 0;
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--text-primary);
   outline: none;
 }
@@ -835,16 +861,16 @@ body {
   transition: color var(--transition), transform 0.1s;
 }
 
+.btn-clear.visible {
+  display: block;
+}
+
 .btn-clear:hover {
   color: var(--accent);
 }
 
 .btn-clear:active {
   transform: scale(0.9);
-}
-
-.btn-clear.visible {
-  display: block;
 }
 
 /* ── No Results ─────────────────────────────────────────── */
@@ -916,14 +942,6 @@ body {
 
   .header-brand p {
     font-size: 0.65rem;
-  }
-
-  #theme-btn-label {
-    display: none;
-  }
-
-  .btn-toggle {
-    padding: 8px; /* equal padding for icon-only */
   }
 
   .day-info {

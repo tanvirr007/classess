@@ -228,15 +228,10 @@ function renderRoutine() {
       const card = document.createElement('article');
       card.className = 'class-card';
       
-      // Combine searchable terms for efficient filtering (Teacher, Subject, Code)
-      const searchTerms = [
-        subjectVal,
-        teacherName,
-        cls.subject_code || '',
-        cls.teacher_initials
-      ].join(' ').toLowerCase();
-      
-      card.setAttribute('data-search', searchTerms);
+      card.setAttribute('data-search', [subjectVal, teacherName, cls.subject_code || '', cls.teacher_initials].join(' ').toLowerCase());
+      card.setAttribute('data-teacher', `${teacherName} ${cls.teacher_initials}`.toLowerCase());
+      card.setAttribute('data-subject', subjectVal.toLowerCase());
+      card.setAttribute('data-code', (cls.subject_code || '').toLowerCase());
 
       card.innerHTML = `
         <div class="card-header-meta">
@@ -542,6 +537,7 @@ function updateCountdown() {
 /* ── Search Logic ─────────────────────────────────────────── */
 function initSearch() {
   const searchInput = document.getElementById('class-search');
+  const searchCategory = document.getElementById('search-category');
   const clearBtn = document.getElementById('search-clear');
   const noResults = document.getElementById('no-results');
   const resetBtn = document.getElementById('reset-search');
@@ -551,6 +547,7 @@ function initSearch() {
 
   const performSearch = () => {
     const query = searchInput.value.toLowerCase().trim();
+    const category = searchCategory ? searchCategory.value : 'all';
     const cards = document.querySelectorAll('.class-card');
     const days = document.querySelectorAll('.day-section');
     
@@ -561,10 +558,34 @@ function initSearch() {
 
     // Filter cards
     cards.forEach(card => {
-      const searchTerms = card.getAttribute('data-search') || '';
-      const isMatch = searchTerms.includes(query);
+      let targetText = '';
+      if (category === 'teacher') {
+        targetText = card.getAttribute('data-teacher') || '';
+      } else if (category === 'subject') {
+        targetText = card.getAttribute('data-subject') || '';
+      } else if (category === 'code') {
+        targetText = card.getAttribute('data-code') || '';
+      } else {
+        targetText = card.getAttribute('data-search') || '';
+      }
+
+      // Improved matching: use word boundaries for short queries
+      // to avoid matching "sa" in "Hasan"
+      let isMatch = false;
+      if (query.length === 0) {
+        isMatch = true;
+      } else {
+        // Use word boundary for queries length < 3 or specific categories
+        if (query.length <= 2 || category !== 'all') {
+          const regex = new RegExp('\\b' + query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
+          isMatch = regex.test(targetText);
+        } else {
+          isMatch = targetText.includes(query);
+        }
+      }
+
       card.classList.toggle('hidden', !isMatch);
-      if (isMatch) hasAnyMatch = true;
+      if (isMatch && query.length > 0) hasAnyMatch = true;
     });
 
     // Filter days based on visible cards
@@ -577,44 +598,51 @@ function initSearch() {
       if (query.length > 0 && shouldShowDay) {
         day.classList.add('active');
         day.querySelector('.day-header').setAttribute('aria-expanded', 'true');
-      } else if (query.length === 0) {
-        // If query is cleared, we don't necessarily want to collapse everything, 
-        // but the current accordion logic handles it. 
-        // For now, let's keep it simple.
       }
     });
 
+    if (query.length === 0) {
+        hasAnyMatch = true; // Show routine if no query
+    }
+
     // Show/hide no results message
     if (noResults) {
-      noResults.classList.toggle('hidden', hasAnyMatch || query.length === 0);
+      noResults.classList.toggle('hidden', hasAnyMatch);
     }
     
     // Hide routine container if no matches
-    routineContainer.classList.toggle('hidden', !hasAnyMatch && query.length > 0);
+    routineContainer.classList.toggle('hidden', !hasAnyMatch);
   };
 
-  const collapseAllDays = () => {
+  const resetSearch = () => {
+    searchInput.value = '';
+    if (searchCategory) searchCategory.value = 'all';
+    performSearch();
+    
+    // Collapse all days
     const days = document.querySelectorAll('.day-section');
     days.forEach(day => {
       day.classList.remove('active');
       day.querySelector('.day-header').setAttribute('aria-expanded', 'false');
     });
+    
+    // Scroll to top
+    const mainOffset = document.getElementById('main').offsetTop - 20;
+    window.scrollTo({ top: mainOffset, behavior: 'smooth' });
   };
 
   searchInput.addEventListener('input', performSearch);
+  if (searchCategory) {
+    searchCategory.addEventListener('change', performSearch);
+  }
 
   clearBtn.addEventListener('click', () => {
     searchInput.value = '';
     performSearch();
-    collapseAllDays();
     searchInput.focus();
   });
 
-  resetBtn.addEventListener('click', () => {
-    searchInput.value = '';
-    performSearch();
-    collapseAllDays();
-  });
+  resetBtn.addEventListener('click', resetSearch);
 }
 
 /* ── Init ─────────────────────────────────────────────────── */
