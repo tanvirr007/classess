@@ -227,6 +227,17 @@ function renderRoutine() {
 
       const card = document.createElement('article');
       card.className = 'class-card';
+      
+      // Combine searchable terms for efficient filtering
+      const searchTerms = [
+        subjectVal,
+        teacherName,
+        cls.room,
+        cls.subject_code || '',
+        cls.teacher_initials
+      ].join(' ').toLowerCase();
+      
+      card.setAttribute('data-search', searchTerms);
 
       card.innerHTML = `
         <div class="card-header-meta">
@@ -529,6 +540,80 @@ function updateCountdown() {
   widget.innerHTML = `<span class="clock-icon">${icons.clock}</span> <span>${messagePrefix} <strong style="color:var(--accent);">${timeStr}</strong></span>`;
 }
 
+/* ── Search Logic ─────────────────────────────────────────── */
+function initSearch() {
+  const searchInput = document.getElementById('class-search');
+  const clearBtn = document.getElementById('search-clear');
+  const noResults = document.getElementById('no-results');
+  const resetBtn = document.getElementById('reset-search');
+  const routineContainer = document.getElementById('routine-container');
+
+  if (!searchInput || !routineContainer) return;
+
+  const performSearch = () => {
+    const query = searchInput.value.toLowerCase().trim();
+    const cards = document.querySelectorAll('.class-card');
+    const days = document.querySelectorAll('.day-section');
+    
+    // Toggle clear button
+    clearBtn.classList.toggle('visible', query.length > 0);
+
+    let hasAnyMatch = false;
+
+    // Filter cards
+    cards.forEach(card => {
+      const searchTerms = card.getAttribute('data-search') || '';
+      const isMatch = searchTerms.includes(query);
+      card.classList.toggle('hidden', !isMatch);
+      if (isMatch) hasAnyMatch = true;
+    });
+
+    // Filter days based on visible cards
+    days.forEach(day => {
+      const visibleCardsInDay = day.querySelectorAll('.class-card:not(.hidden)');
+      const shouldShowDay = visibleCardsInDay.length > 0;
+      day.classList.toggle('hidden', !shouldShowDay);
+      
+      // Auto-expand day if searching and there's a match
+      if (query.length > 0 && shouldShowDay) {
+        day.classList.add('active');
+        day.querySelector('.day-header').setAttribute('aria-expanded', 'true');
+      } else if (query.length === 0) {
+        // If query is cleared, we don't necessarily want to collapse everything, 
+        // but the current accordion logic handles it. 
+        // For now, let's keep it simple.
+      }
+    });
+
+    // Show/hide no results message
+    if (noResults) {
+      noResults.classList.toggle('hidden', hasAnyMatch || query.length === 0);
+    }
+    
+    // Hide routine container if no matches
+    routineContainer.classList.toggle('hidden', !hasAnyMatch && query.length > 0);
+  };
+
+  searchInput.addEventListener('input', performSearch);
+
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    performSearch();
+    searchInput.focus();
+  });
+
+  resetBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    performSearch();
+    // Optionally collapse all days on reset
+    const days = document.querySelectorAll('.day-section');
+    days.forEach(day => {
+      day.classList.remove('active');
+      day.querySelector('.day-header').setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
 /* ── Init ─────────────────────────────────────────────────── */
 function init() {
   applyTheme();
@@ -536,6 +621,7 @@ function init() {
   initLogoModal();
   renderRoutine();
   initAccordion();
+  initSearch();
   initVersion();
 
   // Initialize and run countdown
