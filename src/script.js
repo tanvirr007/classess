@@ -576,6 +576,53 @@ function initCustomSelect(onSelect) {
   document.addEventListener('click', () => toggleSelect(false));
 }
 
+/* ── Typing Placeholder Animation ────────────────────────── */
+function initPlaceholderAnimation() {
+  const searchInput = document.getElementById('class-search');
+  if (!searchInput) return;
+
+  const text = "Search your class schedule…";
+  let currentIndex = 0;
+  let showCursor = true;
+  let timeoutId = null;
+
+  // Blinking cursor
+  setInterval(() => {
+    showCursor = !showCursor;
+    // Update placeholder with current blinking state relative to current text
+    searchInput.placeholder = text.substring(0, currentIndex) + (showCursor ? "|" : "");
+  }, 500);
+
+  const typeLoop = () => {
+    // Force cursor visible while advancing the next character
+    showCursor = true; 
+    searchInput.placeholder = text.substring(0, currentIndex) + "|";
+    
+    if (currentIndex < text.length) {
+      currentIndex++;
+      timeoutId = setTimeout(typeLoop, 80); // Speed up typing slightly for repeating effect
+    } else {
+      // Reached the end. Wait 2 seconds, then restart
+      timeoutId = setTimeout(() => {
+        currentIndex = 0;
+        typeLoop();
+      }, 2000);
+    }
+  };
+
+  typeLoop();
+
+  // Reset animation when user clears the input manually
+  searchInput.addEventListener('input', () => {
+    if (searchInput.value.length === 0) {
+      clearTimeout(timeoutId);
+      currentIndex = 0;
+      showCursor = true;
+      typeLoop();
+    }
+  });
+}
+
 /* ── Search Logic ─────────────────────────────────────────── */
 function initSearch() {
   const searchInput = document.getElementById('class-search');
@@ -700,6 +747,7 @@ function init() {
   initLogoModal();
   renderRoutine();
   initAccordion();
+  initPlaceholderAnimation();
   initSearch();
   initVersion();
 
