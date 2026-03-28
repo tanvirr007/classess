@@ -67,6 +67,8 @@ check_dependency "git"
 check_dependency "jq"
 
 current_version=$($JQ_BIN -r '.version' "$FILE")
+current_date=$($JQ_BIN -r '.release_date' "$FILE")
+
 if [ "$current_version" == "null" ] || [ -z "$current_version" ]; then
     echo "Error: Could not find version field in $FILE"
     exit 1
@@ -111,16 +113,21 @@ new_version="$major.$minor.$patch"
 new_date=$(date +"%d %B %Y")
 
 echo ">>> Bumped version to: $current_version -> $new_version"
-echo ">>> Set release date to: $new_date"
+
+commit_body=">>> Update type: $update_type
+>>> Bumped version to: $current_version -> $new_version"
+
+if [ "$current_date" != "$new_date" ]; then
+    echo ">>> Set release date to: $new_date"
+    commit_body="$commit_body
+>>> Set release date to: $new_date"
+fi
 
 $JQ_BIN --arg v "$new_version" --arg d "$new_date" \
    '.version = $v | .release_date = $d' "$FILE" > "${FILE}.tmp" && mv "${FILE}.tmp" "$FILE"
 
 git add "$FILE"
 commit_summary="release: v$new_version"
-commit_body=">>> Update type: $update_type
->>> Bumped version to: $current_version -> $new_version
->>> Set release date to: $new_date"
 
 git commit -s -m "$commit_summary" -m "$commit_body"
 
