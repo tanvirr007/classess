@@ -122,6 +122,6 @@ commit_body=">>> Update type: $update_type
 >>> Bumped version to: $current_version -> $new_version
 >>> Set release date to: $new_date"
 
-git commit -m "$commit_summary" -m "$commit_body"
+git commit -s -m "$commit_summary" -m "$commit_body"
 
 echo ">>> Successfully updated $FILE and committed with message: '$commit_summary'"
