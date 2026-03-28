@@ -669,12 +669,8 @@ function initSearch() {
       if (query.length === 0) {
         isMatch = true;
       } else {
-        if (query.length <= 2 || category !== 'all') {
-          const regex = new RegExp('\\b' + query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
-          isMatch = regex.test(targetText);
-        } else {
-          isMatch = targetText.includes(query);
-        }
+        const regex = new RegExp('\\b' + query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
+        isMatch = regex.test(targetText);
       }
 
       card.classList.toggle('hidden', !isMatch);
