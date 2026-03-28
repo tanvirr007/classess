@@ -108,13 +108,13 @@ case $choice in
         ;;
 esac
 
-echo ">>> Update type: $update_type"
+echo ">>> Type: $update_type"
 new_version="$major.$minor.$patch"
 new_date=$(date +"%d %B %Y")
 
 echo ">>> Bumped version to: $current_version -> $new_version"
 
-commit_body=">>> Update type: $update_type
+commit_body=">>> Type: $update_type
 >>> Bumped version to: $current_version -> $new_version"
 
 if [ "$current_date" != "$new_date" ]; then
