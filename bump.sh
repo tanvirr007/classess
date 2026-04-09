@@ -92,10 +92,13 @@ printf "\033[5A\033[J"
 case $choice in
     1)
         major=$((major + 1))
+        minor=0
+        patch=0
         update_type="Major update"
         ;;
     2)
         minor=$((minor + 1))
+        patch=0
         update_type="Minor update"
         ;;
     3)
